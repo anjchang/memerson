@@ -13,11 +13,11 @@ def old_skool(pngimage):
             pngimage.putpixel((x, y), ( r - 122 , g + 122, b - 122 ) + alpha)
     
 def memerson(myimage,caption):
-    """memerson(image, string) -  takes an image and a string caption, and returns a meme.\n
+    """./memerson image, string -  takes an image and a string caption, and returns a meme.\n
     additional arguments will run a filter before creating a meme
-    e.g. memerson(image,string,'old_skool')
+    e.g. ./memerson.py "balloons.png' 'hello'
+    or ./memerson.py "balloons.png' 'hello' 'old_skool'
     """
-    
     draw = ImageDraw.Draw(myimage)
     font = ImageFont.truetype('Arial.ttf', 20)
     textwidth, textheight = draw.textsize(caption, font)
@@ -29,13 +29,15 @@ def memerson(myimage,caption):
     draw.text((x, y), caption, fill=color, font=font)
     return myimage
 
-if len(sys.argv) != 3:
+if len(sys.argv) <= 2:
     print len(sys.argv)
     print memerson.__doc__
 else:
-    imagefile, caption = sys.argv[1:]
+    imagefile, caption = sys.argv[1:3]
     inputimage = Image.open(imagefile)
-    if argv[3:4]=='oldskool':
-        oldskool(inputimage)
+    if sys.argv[3]=='old_skool':
+        input = old_skool(inputimage)
+    else:
+        print 'No filter named '+sys.argv[3]
     outputimage = memerson(inputimage,caption)
-    outputimage.save( 'meme'+caption.strip()+'.png')
+    outputimage.save( 'M_'+caption.strip()+'.png')
